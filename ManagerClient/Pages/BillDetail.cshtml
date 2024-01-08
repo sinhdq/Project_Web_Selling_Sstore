@@ -1,0 +1,62 @@
+﻿@page
+@model ManagerClient.Pages.BillDetailModel
+@{
+     ViewData["Title"] = "Bill Detail";
+}
+<!-- Page Preloder -->
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
+
+        <!-- Shoping Cart Section Begin -->
+        <section class="shoping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="shoping__product">Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      @foreach(var item in Model.Carts){
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <img src="image/@item.Image" alt="">
+                                                <h5 name = "proname">@item.ProductName</h5>
+                                            </td>
+                                            
+                                            <td class="shoping__cart__quantity">
+                                               <p>@item.Quantity</p>
+                                            </td>
+
+                                            <td class="shoping__cart__total">
+                                                @item.TotalPrice $
+                                            </td>
+                                        </tr>  
+                                        }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__btns">
+                            <a asp-page="BillManager" class="primary-btn cart-btn">Back</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Shoping Cart Section End -->

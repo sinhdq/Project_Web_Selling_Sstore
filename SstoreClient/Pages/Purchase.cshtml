@@ -1,0 +1,78 @@
+﻿@page
+@model SstoreClient.Pages.PurchaseModel
+@using System.Net.Http.Headers;
+@using DTO.AccountDTO;
+@using DTO.CartDTO;
+@using System.Text.Json;
+@{
+
+    HttpClient client = new HttpClient();
+    string ApiUri = "http://localhost:5007/api/";
+    var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+    client.DefaultRequestHeaders.Accept.Add(contentType);
+    
+     var option = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+
+    string json = HttpContextAccessor.HttpContext.Session.GetString("_login") ?? "";
+    AccountDTO acc = JsonConvert.DeserializeObject<AccountDTO>(json);
+
+}
+<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <h4>Purchase Order</h4>
+                    <div class="row">
+                        @foreach(var item in Model.Listbill){
+                       
+                    <div class="col-lg-6 col-md-6">
+                        <div class="checkout__order">
+                            @if (item.ShippingDate.ToString().Equals("")) {
+                                <h4 style="color:Tomato;">Shipping</h4>
+                            }
+                            else
+                            {
+                               <h4 style="color:DodgerBlue;">Shipped</h4> 
+                            }
+                            @{
+                                         //get list cart by billid and customer id
+                                         HttpResponseMessage response = await client.GetAsync(ApiUri + $"BillItem/cart/purchase/{acc.Id}&{item.Id}");
+                                         string strData = await response.Content.ReadAsStringAsync();
+                                         List<CartDTO> carts = System.Text.Json.JsonSerializer.Deserialize<List<CartDTO>>(strData, option);
+
+                            }
+                            <div class="checkout__order__products">Products <span>Total</span></div>
+                                <ul>
+                                   @{foreach(var c in carts){
+                                    <li>@c.ProductName<span>@c.TotalPrice VND</span></li>
+                                   }}
+                                </ul>
+                                @{
+                                    HttpResponseMessage response2 = await client.GetAsync(ApiUri + $"BillItem/Total/Purchase/{acc.Id}&{item.Id}");
+                                    string total = await response2.Content.ReadAsStringAsync();
+
+                                }
+                               
+                                    <div class="checkout__order__subtotal">Subtotal <span>@total $</span></div>
+                                    <div class="checkout__order__total">Total <span>@total $</span></div>
+                                
+                                @if(!item.ShippingDate.ToString().Equals("")){
+                                    <a href="/Purchase?sstore=Confirm&bid=@item.Id" class="site-btn">CONFIRM</a>
+                                }
+                                
+                                </div>
+                        </div>
+                        }
+                        
+                    </div>
+            </div>
+        </div>
+    </section>
+ 

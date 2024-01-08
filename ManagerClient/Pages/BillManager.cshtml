@@ -1,0 +1,81 @@
+﻿@page
+@model ManagerClient.Pages.BillManagerModel
+@{
+    ViewData["Title"] = "Bill Manager";
+}
+ <div id="preloder">
+            <div class="loader"></div>
+        </div>
+           <section class="hero hero-normal">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="hero__search">
+                            <div class="hero__search__form">
+                                <form asp-page-handler="Fillter" method = "post">
+                                    <div class="hero__search__categories">
+                                        All Customer
+                                        <span class="arrow_carrot-down"></span>
+                                    </div>
+                                    <input type="text" placeholder="Customer name" name="fname">
+                                    <button type="submit" class="site-btn">SEARCH</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container">   
+             <p style="color:Tomato;">@Model.message</p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Address</th>
+                        <th>Create date</th>
+                        <th>Shipping date</th>
+                        <th>Required date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model.list){
+                    <tr>
+                        <td>@item.CustomerName</td>
+                        <td>@item.Address</td>
+                        <td>@item.CreateDate</td>
+                    @if (item.ShippingDate.ToString().Equals(""))
+                    {
+                     <td>
+                         <a href ="BillManager?sstore=startship&bid=@item.Id" style="color:Tomato;">Start Ship</a>
+                     </td>
+                    }
+                    else
+                    {
+                       <td>@item.ShippingDate</td>
+                    }
+                    @if(item.RequiredDate.ToString().Equals("")){
+                       <td style="color:Tomato;">Don't order</td>
+                    }
+                    else{
+                         <td>@item.RequiredDate</td>
+                        }
+                    @if (item.Status == false)
+                    {
+                        <td style="color:Tomato;">Doing</td>
+                    }
+                    else{
+
+                        <td style="color:DodgerBlue;">Done</td>
+                        }
+                      <td>
+                         <a href ="BillManager?sstore=detailorder&bid=@item.Id" style="color:MediumSeaGreen;">Detail</a>
+                     </td>
+                    </tr>
+
+                          } 
+                </tbody>
+            </table>
+        </div>

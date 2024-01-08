@@ -1,0 +1,36 @@
+﻿@page
+@model ManagerClient.Pages.SendMailCustomerModel
+@{
+     ViewData["Title"] = "Send Mail";
+}
+ <div id="preloder">
+            <div class="loader"></div>
+        </div>
+
+        <!-- Contact Form Begin -->
+        <div class="contact-form spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="contact__form__title"> 
+                            <h2>Send Mail Customer</h2>
+                             <p style="color:Tomato;">@Model.message</p>
+                        </div>
+                    </div>
+                </div>
+                <form method="post">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" readonly value="@Model.customer.FullName" name="name">
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" value="@Model.customer.Email" name="mail">
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <textarea placeholder="Your message" name="message"></textarea>
+                            <button type="submit" class="site-btn" name="submit">SEND MESSAGE</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>

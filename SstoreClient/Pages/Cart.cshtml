@@ -1,0 +1,82 @@
+﻿@page
+@model SstoreClient.Pages.CartModel
+@{
+}
+<section class="shoping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__table">
+                             <p style="color:Tomato;">@Model.message</p>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="shoping__product">Products</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Carts) {
+                                         <tr>
+                                            <td class="shoping__cart__item">
+                                                <img src="image/@item.Image" alt="">
+                                                <h5 name = "proname">@item.ProductName</h5>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                @item.Price VND
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <div class="quantity">
+                                                    <div > 
+                                                        @if(item.Quantity>1)
+                                                        {
+                                                        <a href="Cart?sstore=dequantityitem&idb=@item.BillId&idp=@item.ProductId" style="color:black; font-size:20px;">-</a>
+                                                        }
+
+                                                        @if (item.Quantity == 1)
+                                                         {
+                                                        <a href="Cart?sstore=removeitem&idb=@item.BillId&idp=@item.ProductId" style="color:black; font-size:20px;">-</a>
+                                                          }
+                                                     @item.Quantity
+                                                        <a href="Cart?sstore=incquantityitem&idb=@item.BillId&idp=@item.ProductId" style="color:black; font-size:20px;">+</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                                 @item.TotalPrice VND
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                 <a href="Cart?sstore=removeitem&idb=@item.BillId&idp=@item.ProductId" style="color:Tomato;" class="breadcrumb__option">X</a>
+                                            </td>
+                                        </tr>  
+                                        }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__btns">
+                            <a asp-page="/PurchaseOrder" class="primary-btn cart-btn">PURCHASE ORDER</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="shoping__checkout">
+                            <h5>Cart Total</h5>
+                            <ul>
+                                <li>Total <span>@Model.TotalPrice VND</span></li>
+                            </ul>
+                            <a asp-page="/Checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Shoping Cart Section End -->

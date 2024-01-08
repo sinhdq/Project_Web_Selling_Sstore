@@ -1,0 +1,154 @@
+﻿@page
+@model IndexModel
+@{
+    int count = 0;
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10">
+
+                        <div class="hero__item set-bg" data-setbg="image/panner3.png">
+                            <div class="hero__text">
+                                <span>Sstore</span>
+                                <h2>Technology is friend of life<br/></h2>
+                                <p></p>
+                                <a href="/Shop" class="primary-btn">SHOP NOW</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Hero Section End -->
+
+        <!-- Categories Section Begin -->
+        <section class="categories">
+            <div class="container">
+                <div class="row">
+                    <div class="categories__slider owl-carousel">
+                        <div class="col-lg-3">
+                            <div class="categories__item set-bg" data-setbg="image/pc1.png">
+                                <h5><a class="primary-btn" href="/Shop?categoryid=3">PC Gamming</a></h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="categories__item set-bg" data-setbg="image/iphone15.png">
+                                <h5><a class="primary-btn" href="/Shop?categoryid=1">IPhone</a></h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="categories__item set-bg" data-setbg="image/samsungs22.png">
+                                <h5><a class="primary-btn" href="/Shop?categoryid=1">Samsung</a></h5>
+                            </div>
+                        </div> 
+                        <div class="col-lg-3">
+                            <div class="categories__item set-bg" data-setbg="image/macbookm2.png">
+                                <h5><a class="primary-btn" href="/Shop?categoryid=2">Macbook</a></h5>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="categories__item set-bg" data-setbg="image/gigabyte.png">
+                                <h5><a class="primary-btn"  href="/Shop?categoryid=2">Laptop</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Categories Section End -->
+
+        <!-- Featured Section Begin -->
+        <section class="featured spad">
+            <div class="container">
+                
+                    <div class="row featured__filter">
+
+            @foreach (var item in Model.listproduct) {
+                if (item.Quantity > 0)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
+                        <div class="featured__item">
+                                    <div class="featured__item__pic set-bg" data-setbg="image/@item.Image">
+                                        <ul class="featured__item__pic__hover">
+                                            <li><a href="Shop?sstore=AddToCart&productid=@item.Id&quantity=1"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="featured__item__text">
+                                        <h6><a href="ProductDetail?idp=@item.Id">@item.ProductName</a></h6>
+                                        <h5>@item.Price VND</h5>
+                                    </div>
+                                </div>
+                </div>
+                }
+                count++;  
+                 if (count == 8) break;
+                        }
+
+                    </div>
+               
+            </div>
+        </section>
+
+        <section class="from-blog spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title from-blog__title">
+                            <h2>From The Blog</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="image/blog-1.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                                <p>Cooking delicious in addition to mastering the recipes requires you to have experience. In the process of cooking, we will draw more experience for ourselves the next time we cook.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="image/blog-2.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
+                                <p>Nowadays, many people skip breakfast because they don't have time to cook and are busy with work. Let's find out quick breakfast dishes with Smarket! </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="image/blog-3.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                <h5><a href="#">Visit the clean farm in the VN</a></h5>
+                                <p>The following article would like to share the largest clean vegetable farms in Vietnam to help readers feel secure to choose. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

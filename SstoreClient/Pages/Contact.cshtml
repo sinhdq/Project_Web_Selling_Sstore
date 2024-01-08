@@ -1,0 +1,92 @@
+﻿@page
+@model SstoreClient.Pages.ContactModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
+
+        <!-- Contact Section Begin -->
+        <section class="contact spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                        <div class="contact__widget">
+                            <span class="icon_phone"></span>
+                            <h4>Phone</h4>
+                            <p>0917076864</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                        <div class="contact__widget">
+                            <span class="icon_pin_alt"></span>
+                            <h4>Address</h4>
+                            <p>Hoa Lac - Thach That - Ha Noi</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                        <div class="contact__widget">
+                            <span class="icon_clock_alt"></span>
+                            <h4>Open time</h4>
+                            <p>5:00 am to 23:00 pm</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 text-center">
+                        <div class="contact__widget">
+                            <span class="icon_mail_alt"></span>
+                            <h4>Email</h4>
+                            <p>sstore1403@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Section End -->
+
+        <!-- Map Begin -->
+        <div class="map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14897.942136898686!2d105.5270643!3d21.01325!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b465a4e65fb%3A0xaae6040cfabe8fe!2sFPT%20University!5e0!3m2!1sen!2s!4v1666278900957!5m2!1sen!2s" 
+                height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            <div class="map-inside">
+                <i class="icon_pin"></i>
+                <div class="inside-widget">
+                    <h4>Ha Noi</h4>
+                    <ul>
+                        <li>Phone: 0917076864</li>
+                        <li>Add: Hoa Lac-Thach That-Ha Noi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Map End -->
+
+        <!-- Contact Form Begin -->
+        <div class="contact-form spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="contact__form__title">
+                            <h2>Leave Message</h2>
+                            <p style="color:Tomato;">@Model.message</p>
+                        </div>
+                    </div>
+                </div>
+                <form method="post">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text" readonly value="@Model.account.FullName" name="name">
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input type="text"  readonly value="@Model.account.Email" name="mail">
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <textarea placeholder="Your message" name="message"></textarea>
+                            <button type="submit" class="site-btn" name="submit">SEND MESSAGE</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>

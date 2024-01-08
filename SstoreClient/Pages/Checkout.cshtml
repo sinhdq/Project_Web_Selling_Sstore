@@ -1,0 +1,66 @@
+﻿@page
+@model SstoreClient.Pages.CheckoutModel
+@{
+}
+<!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+   
+ <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <h4>Billing Details</h4>
+                 <p style="color:Tomato;">@Model.message</p>
+                <form  method="post">
+                    <div class="row"> 
+                        <div class="col-lg-6 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="checkout__input">
+                                        <p>Name<span>*</span></p>
+                                        <input readonly type="text" name="fullname" value="@Model.account.FullName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Address<span>*</span></p>
+                                <input name = "address" type="text"  class="checkout__input__add" value="@Model.account.Address">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input readonly type="text" name = "phone" value="@Model.account.Phone">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input readonly type="text" name = "email" value="@Model.account.Email">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="checkout__order">
+                                <h4>Your Order</h4>
+                                <div class="checkout__order__products">Products <span>Total</span></div>
+                                <ul>
+                                    @foreach (var item in Model.Carts)
+                                    {
+                                        <li>@item.ProductName<span>@item.TotalPrice VND</span></li>
+                                    }
+                                </ul>
+                                <div class="checkout__order__subtotal">Subtotal <span>@Model.TotalPrice VND</span></div>
+                                <div class="checkout__order__total">Total <span>@Model.TotalPrice VND</span></div>
+                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>

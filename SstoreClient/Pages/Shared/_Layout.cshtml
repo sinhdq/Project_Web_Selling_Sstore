@@ -1,0 +1,155 @@
+﻿@using DTO.AccountDTO;
+@using System.Collections;
+@using SstoreClient.ModelTMP;
+@using System.Net.Http.Headers;
+
+@{
+    HttpClient client = new HttpClient();
+    var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+    client.DefaultRequestHeaders.Accept.Add(contentType);
+    string  ApiUri = "http://localhost:5007/api/";
+    string quantities = "0";
+    string json = HttpContextAccessor.HttpContext.Session.GetString("_login") ?? "";
+ 
+    AccountDTO acc = null;
+     int quantity = 0;
+    if (!json.Equals(""))
+    {
+        acc = JsonConvert.DeserializeObject<AccountDTO>(json);
+    }
+    if(acc !=null){
+            HttpResponseMessage response2 = await client.GetAsync(ApiUri + $"BillItem/Quantity/{acc.Id}");
+             quantities = await response2.Content.ReadAsStringAsync();
+    }
+   
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sstore</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" asp-append-version="true" />
+    
+        <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/elegant-icons.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/nice-select.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/jquery-ui.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/owl.carousel.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/slicknav.min.css" asp-append-version="true"/>
+        <link rel="stylesheet" href="~/css/style.css" asp-append-version="true"/>
+         @if (json.Equals(""))
+          {
+        <link rel="stylesheet" href="~/css/loginstyle.css" asp-append-version="true"/>
+        <link href="https://fonts.googleapis.com/css?family=Assistant:400,700" rel="stylesheet" asp-append-version="true" />
+             }
+ 
+</head>
+<body>
+    <header class="header">
+        <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i>sstore1403@gmail.com</li>
+                            @if(!json.Equals("")){
+                                    <li>Wellcome back @acc.FullName</li>
+                                    
+                            }
+                              
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="https://www.facebook.com/dangquocsinh2001"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        </div>
+                        @if(json.Equals("")){
+                        <div class="header__top__right__auth">                          
+                                <a  asp-page="/Login"><i class="fa fa-user"></i>Login</a>
+                        </div>
+                        }else{
+                        <div class="header__top__right__language">
+
+                                    <div ><i class="fa fa-user"></i>    
+                                        <div></div>
+                                    </div>
+                                
+                                <span class="arrow_carrot-down"></span> 
+                            <ul>          
+                               
+                              <li><a asp-page="Logout">Logout</a></li>
+                              
+                              <li><a asp-page="/Profile">Profile</a></li>
+                            </ul>
+                        </div>
+                       }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a asp-page="/Index"><img src="image/logo.png" alt="" width="100" height="80"></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li><a asp-page="/Index">Home</a></li>
+                        <li><a asp-page="/Shop">Shop</a></li>
+                        <li><a asp-page="/Purchase">Purchase</a></li>
+                        <li><a asp-page="/Contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                            @if (!quantities.Equals("0")) {
+                                <li><a href="/Cart"><i class="fa fa-shopping-bag"></i><span>@quantities</span></a></li>
+                            }else{
+                            <li><a href="/Shop"><i class="fa fa-shopping-bag"></i></a></li>
+                            }
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+         <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script>
+        <script src="js/mixitup.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/main.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
